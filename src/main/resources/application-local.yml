@@ -1,0 +1,12 @@
+# application-local.yml dziedziczy z application.properties więc wpisujemy do niego tylko unikalne propertisy
+spring:
+  h2:
+    console:
+      enabled: true
+      path: '/console'
+  datasource:
+    url: 'jdbc:h2:file:./todo-db'
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
