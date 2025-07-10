@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 // Pola createdOn i updatedOn zostały wyniesione do innej klasy aby nie powtarzać ich w kolejnych encjach, bo są powtarzalne
 // Można na kilka sposobów dołączyć je do encji - 1. @Inheritance(strategy = ) i klasa nadrzędna BaseAuditableEntity, 2. @Embedded i klasa Audit która jest @Embeddable - tu nie musimy dziedziczyć
+
 // mówi że będziemy dziedziczyć jakieś pola i ustawia metodę dziedziczenia - tu z klasy BaseAuditableEntity
 // - przykład: mamy klasę A ze wspólnymi kolumnami (np: id, createdOn), i klasy B i C które reprezentują inne dane (np: B - name, surname i C - companyName)
 // - TABLE_PER_CLASS - Każda podklasa ma własną, niezależną tabelę, zawierającą także pola z klasy nadrzędnej - B I C zawierają pola z A
@@ -16,7 +17,6 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 public class Task
 //        extends  BaseAuditableEntity
-
 {
     @Id // to jest wymagane jako główne pole Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // automatycznie inkrementuje wartość primary key
@@ -25,12 +25,26 @@ public class Task
     private String description;
     private boolean done;
     private LocalDateTime deadline;
-    // adnotacja @Column pozwala np mapować pole na inną nazwę w bazie, czy jest nullable, jej dopuszcalny length, czy jest unique
-    // adnotacja @Transient nadajemy jeśli nie chcemy aby pole było zapisywane do bazy danych - to pole nie jest trwałe
+
     @Embedded // mówi że dodajemy do encji graty z innej klasy, która jest @Embeddedable - najczęściej by rozszerzać jakieś wspólne kolumny dla wielu encji
-    
 //    @AttributeOverride(column = @Column(name = "updatedOn"), name = "updatedOn") // pomocnicza adnotacja która może zmienić np mapowanie pól w Audit
     private Audit audit =  new Audit();// musimy zainicjalizować, bo inaczej hibernate widzi null i na null nie może wykonać onCreate i onUpdate
+
+    @ManyToOne // mówi że wiele tasków może należeć do jednej grupy
+    // targetEntity - mówi do jakiej encji się odnosimy - tu od razu widać że jest to TaskGroup
+    // cascade - oznacza, jakie operacje mają być propagowane (czyli „przechodzić”) z encji głównej (tej, która zawiera relację) na encję powiązaną
+    //     PERSIST - Gdy zapisujesz (persist) encję główną, zapisze się też powiązana encja.
+    //     MERGE - Gdy wykonasz merge na encji głównej, wykona się też merge na powiązanej.
+    //     REMOVE - Gdy usuniesz encję główną, zostanie też usunięta powiązana encja.
+    //     REFRESH - Gdy wykonasz refresh, odświeżona zostanie także encja powiązana.
+    //     DETACH - Gdy encja główna zostanie odłączona od kontekstu (EntityManager), to samo stanie się z encją powiązaną.
+    //     ALL - Skrót oznaczający: PERSIST, MERGE, REMOVE, REFRESH, DETACH
+    @JoinColumn(name = "task_group_id") // po której kolumnie robimy join - foreign key w task dla task_group
+    private TaskGroup group;
+
+    // adnotacja @Column pozwala np mapować pole na inną nazwę w bazie, czy jest nullable, jej dopuszcalny length, czy jest unique
+    // adnotacja @Transient nadajemy jeśli nie chcemy aby pole było zapisywane do bazy danych - to pole nie jest trwałe
+
 
     Task() {
     }
