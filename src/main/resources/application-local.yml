@@ -1,4 +1,7 @@
 # application-local.yml dziedziczy z application.properties więc wpisujemy do niego tylko unikalne propertisy
+server:
+  port: 8090
+
 spring:
   h2:
     console:
