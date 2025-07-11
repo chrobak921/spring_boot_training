@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 // przykladowy @Service
 @Service
-public class BasciSrvice {
+public class BasicService {
     @Autowired // nie mamy konstruktora więc musimy użyć @Autowired aby wstrzyknąć beana TaskGroupRepository
     List<String> temp(TaskGroupRepository repository) {
         // FIXME: N + 1 -
