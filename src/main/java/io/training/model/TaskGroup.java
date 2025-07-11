@@ -21,10 +21,12 @@ public class TaskGroup {
     // hibernate ma własną implementację kolekcji, a przychodząca do głowy kolekcja tu jest List, jednak hibernate'owa implementacja List
     // nie utrzymuje kolejności obiektów, więc lepszym rozwiązaniem tu będzie Set, bo chociaż pozwoli nam trzymać tyko unikalne taski
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "group")
+    // można by użyć tylko @OneToMany w klasie TaskGroup i nie ustawiać nic w Task ale wtedy trzeba podać referencję do kolumny w klasie Task
+//    @JoinColumn(referencedColumnName = "task_group_id")
     private Set<Task> tasks;
 
-    @Embedded
-    private Audit audit =  new Audit();
+//    @Embedded
+//    private Audit audit =  new Audit();
 
     TaskGroup() {
     }

@@ -1,5 +1,7 @@
-package io.training.model;
+package io.training.adapter;
 
+import io.training.model.Task;
+import io.training.model.TaskRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +22,7 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer>
     @Override // nadpisujemy istniejącą metodę
     @Query(nativeQuery = true, value = "select count(*) > 0 from tasks where id=:id ") // mówi że query będzie czysto sql'owe, podajemy również samo query a param mówi że ma być to param o podanej nazwie
     boolean existsById(@Param("id") Integer id);
+
+    @Override
+    boolean existsByDoneIsFalseAndAndGroup_Id(Integer id);
 }
