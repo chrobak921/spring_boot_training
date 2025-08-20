@@ -13,7 +13,7 @@ package io.training.model;
 
 
 
-//udostępniamy na zewnątrz wszystkie metody z JpaRepository udostępniamy na zewnątrz wszystkie metody z JpaRepository
+//udostępniamy na zewnątrz wszystkie metody z JpaRepository
 //dodatkowymi parametrami @RepositoryRestResource() są np: path - URI pod jakim zapytanie rest jest dostępne
 //                                                         collectionResourceRel - nazwa zwróconej kolekcji wyświetlana w response
 //@RepositoryRestResource
