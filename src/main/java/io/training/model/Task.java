@@ -25,7 +25,6 @@ public class Task
     private String description;
     private boolean done;
     private LocalDateTime deadline;
-
     @Embedded // mówi że dodajemy do encji graty z innej klasy, która jest @Embeddedable - najczęściej by rozszerzać jakieś wspólne kolumny dla wielu encji
 //    @AttributeOverride(column = @Column(name = "updatedOn"), name = "updatedOn") // pomocnicza adnotacja która może zmienić np mapowanie pól w Audit
     private Audit audit =  new Audit();// musimy zainicjalizować, bo inaczej hibernate widzi null i na null nie może wykonać onCreate i onUpdate
@@ -47,6 +46,13 @@ public class Task
 
 
     Task() {
+    }
+
+    // dodatkowy konstruktor żeby nie upubliczniać podstawowego konstruktora i przy tym wszystkich getterów i setterów
+    // użycie np w GroupTaskWriteModel aby inicjalnie stworzyć taska
+     public Task(String description, LocalDateTime deadline) {
+        this.description = description;
+        this.deadline = deadline;
     }
 
     public int getId() { return id; }

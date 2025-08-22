@@ -25,10 +25,14 @@ public class TaskGroup {
 //    @JoinColumn(referencedColumnName = "task_group_id")
     private Set<Task> tasks;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
 //    @Embedded
 //    private Audit audit =  new Audit();
 
-    TaskGroup() {
+    public TaskGroup() {
     }
 
     public int getId() { return id; }
@@ -37,7 +41,7 @@ public class TaskGroup {
 
     public String getDescription() { return description; }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -53,8 +57,15 @@ public class TaskGroup {
         return tasks;
     }
 
-    void setTasks(Set<Task> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 
+    Project getProject() {
+        return project;
+    }
+
+    void setProject(Project project) {
+        this.project = project;
+    }
 }

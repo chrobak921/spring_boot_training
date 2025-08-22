@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 // tu bean powstaje przez stworzenie beana dla SqlTaskrepository,a poniważ dodatkowo jest on typu TaskRepository oraz JpaRepository
-// to gdy wstrzykniemy TaskRepository do controller, to Jpa stworzy nam metody dla SqlTastRepo, natomiast TaskRepo uszcupli je tylko do tych w TaskRepo
+// to gdy wstrzykniemy TaskRepository do controller, to Jpa stworzy nam metody dla SqlTastRepo, natomiast TaskRepo uszczupli je tylko do tych w TaskRepo
 public interface TaskRepository {
     List<Task> findAll();
 
