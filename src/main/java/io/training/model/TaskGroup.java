@@ -32,7 +32,7 @@ public class TaskGroup {
 //    @Embedded
 //    private Audit audit =  new Audit();
 
-    TaskGroup() {
+    public TaskGroup() {
     }
 
     public int getId() { return id; }
@@ -41,7 +41,7 @@ public class TaskGroup {
 
     public String getDescription() { return description; }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -57,7 +57,7 @@ public class TaskGroup {
         return tasks;
     }
 
-    void setTasks(Set<Task> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 
